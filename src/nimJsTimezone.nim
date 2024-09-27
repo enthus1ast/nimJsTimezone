@@ -1,6 +1,9 @@
 # https://stackoverflow.com/questions/10087819/convert-date-to-another-timezone-in-javascript
 # This looks very promising, can potentially replace chrono in the browser
 
+when not defined(js) and not defined(nimsuggest):
+  {.fatal: "Module nimJsTimezone is designed to be used with the JavaScript backend.".}
+
 {.emit:"""
 
 function convertTimeZone(
