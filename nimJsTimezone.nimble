@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.2.0"
+version       = "0.3.0"
 author        = "David Krause (enthus1ast)"
 description   = "Convert timezones in js; for example for html datetime-local"
 license       = "MIT"
