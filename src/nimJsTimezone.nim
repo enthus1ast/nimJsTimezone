@@ -64,6 +64,9 @@ proc fromLocalToTsImpl(dts: cstring, tzName: cstring): cfloat {.importc.}
 proc fromTsToLocal*(ts: Timestamp, tzName: string): string =
   $fromTsToLocalImpl(ts.cfloat, tzName.cstring)
 
+proc fromTsToLocal*(ts: float, tzName: string): string =
+  $fromTsToLocalImpl(ts.cfloat, tzName.cstring)
+
 proc fromLocalToTs*(dts: string, tzName: string): Timestamp =
   fromLocalToTsImpl(dts.cstring, tzName.cstring).Timestamp()
 
@@ -91,10 +94,4 @@ when isMainModule:
       check ts.int == tsParsed.int
       check ts.int == tsParsed2.int
       check tsParsed.int == tsParsed2.int
-
-
-
-      # echo fromTsToLocal(1727447681.039841.Timestamp(), "Europe/Berlin")
-      # echo fromLocalToTs("2024-09-27 18:34:41", "Europe/Berlin")
-      # echo fromLocalToTs("2024-09-27T18:34:41", "Europe/Berlin")
 
