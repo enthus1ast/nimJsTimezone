@@ -54,7 +54,9 @@ function fromLocalToTsImpl(dts, tzName) {
   return (convertTimeZone(new Date(dts), tzName, "UTC") / 1000)
 }
 
-
+function getAllTimezonesImpl() {
+  return Intl.supportedValuesOf('timeZone');
+}
 """.}
    
 import chrono
@@ -70,6 +72,16 @@ proc fromTsToLocal*(ts: float, tzName: string): string =
 
 proc fromLocalToTs*(dts: string, tzName: string): Timestamp =
   fromLocalToTsImpl(dts.cstring, tzName.cstring).Timestamp()
+
+proc getAllTimezonesImpl(): seq[cstring] {.importc}
+proc getAllTimezones(): seq[string] =
+  ## returns a list with all possible timezone values for your environment
+  for tz in getAllTimezonesImpl():
+    result.add $tz
+
+when isMainModule and false:
+  echo getAllTimezonesImpl()
+  echo getAllTimezones()
 
 when isMainModule:
   import unittest
